@@ -12,11 +12,12 @@ resource "digitalocean_kubernetes_cluster" "this" {
   name     = var.cluster_name
   region   = var.region
   vpc_uuid = var.vpc_uuid
+  ha       = var.ha
 
   auto_upgrade  = var.auto_upgrade
   surge_upgrade = var.surge_upgrade
 
-  version = data.digitalocean_kubernetes_versions.cluster.latest_version
+  version = data.digitalocean_kubernetes_versions.this.latest_version
   tags    = var.tags
 
   node_pool {
@@ -28,10 +29,4 @@ resource "digitalocean_kubernetes_cluster" "this" {
     node_count = var.node_count
     tags       = var.node_tags
   }
-}
-
-resource "local_file" "kubeconfig" {
-  content         = digitalocean_kubernetes_cluster.this.kube_config[0].raw_config
-  filename        = var.kubeconfig_path
-  file_permission = "600"
 }

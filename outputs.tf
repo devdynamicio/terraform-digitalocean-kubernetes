@@ -12,7 +12,6 @@ output "id" {
 output "host" {
   value       = digitalocean_kubernetes_cluster.this.kube_config[0].host
   description = "host"
-  sensitive   = true
 }
 
 output "token" {

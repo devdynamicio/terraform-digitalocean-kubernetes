@@ -21,7 +21,6 @@ variable "surge_upgrade" {
   description = "Cluster region"
 }
 
-# Grab the latest version slug from `doctl kubernetes options versions`
 variable "k8s_version_prefix" {
   type        = string
   default     = "1.19."
@@ -60,13 +59,13 @@ variable "node_autoscale" {
 
 variable "node_min" {
   type        = number
-  default     = 3
+  default     = 1
   description = "Min nodes"
 }
 
 variable "node_max" {
   type        = number
-  default     = 8
+  default     = 3
   description = "Max nodes"
 }
 
@@ -78,11 +77,18 @@ variable "node_tags" {
 
 variable "node_count" {
   type        = number
-  default     = 3
+  default     = 1
   description = "Node count"
 }
 
 variable "vpc_uuid" {
   type        = string
   description = "VPC UUID"
+  default     = null
+}
+
+variable "ha" {
+  type        = bool
+  default     = false
+  description = " Enable/disable the high availability control plane for a cluster. High availability can only be set when creating a cluster. Any update will create a new cluster"
 }
